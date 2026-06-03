@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Listen — ICU Update June 2026</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f0f4ff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .header {
+      background: linear-gradient(135deg, #0067A4 0%, #44247C 100%);
+      color: #fff;
+      padding: 36px 32px 32px;
+      text-align: center;
+    }
+    .header-tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      margin-bottom: 14px;
+    }
+    .header h1 { font-size: clamp(20px, 4vw, 28px); font-weight: 800; margin-bottom: 6px; }
+    .header p { font-size: 14px; opacity: 0.8; }
+    .container { max-width: 580px; margin: 0 auto; padding: 36px 20px; flex: 1; }
+    .player-card {
+      background: #fff;
+      border-radius: 20px;
+      border: 1.5px solid #bae6fd;
+      padding: 32px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .mic-icon {
+      width: 72px; height: 72px;
+      background: linear-gradient(135deg, #0067A414, #44247C08);
+      border: 1.5px solid #93c5fd;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+    }
+    .player-title { font-size: 18px; font-weight: 700; color: #1e293b; margin-bottom: 6px; }
+    .player-meta  { font-size: 13px; color: #64748b; margin-bottom: 24px; }
+    audio { width: 100%; border-radius: 10px; height: 48px; margin-bottom: 20px; }
+    .download-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 13px; color: #64748b; text-decoration: none;
+      padding: 8px 16px; border: 1px solid #e2e8f0;
+      border-radius: 8px; background: #f8fafc;
+    }
+    .download-link:hover { background: #f1f5f9; }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 14px; font-weight: 600; color: #0067A4; text-decoration: none;
+    }
+    .back-link:hover { opacity: 0.75; }
+    .notice {
+      background: #fff; border-radius: 12px;
+      border: 1.5px solid #bae6fd;
+      padding: 16px 20px; font-size: 13px; color: #64748b; line-height: 1.6;
+    }
+    .notice strong { color: #1e293b; }
+  </style>
+</head>
+<body>
+
+  <!-- PASSWORD OVERLAY -->
+  <div id="pw-overlay" style="position:fixed;inset:0;background:#f0f4ff;z-index:9999;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+    <div style="background:#fff;border-radius:16px;border:1.5px solid #dbe4ff;padding:40px 32px;width:90%;max-width:380px;text-align:center;box-sizing:border-box;">
+      <div style="width:56px;height:56px;background:#eff6ff;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0067A4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <p style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#64748b;margin:0 0 6px;">Critical Care — MMUH</p>
+      <h2 style="font-size:20px;font-weight:700;color:#1e293b;margin:0 0 8px;">ICU Team Updates</h2>
+      <p style="font-size:14px;color:#64748b;margin:0 0 24px;line-height:1.5;">Staff access only. Enter the password to continue.</p>
+      <input id="pw-input" type="password" placeholder="Enter password" style="width:100%;padding:10px 14px;border:1.5px solid #dbe4ff;border-radius:10px;font-size:15px;outline:none;margin-bottom:10px;box-sizing:border-box;" />
+      <div id="pw-error" style="color:#dc2626;font-size:13px;margin-bottom:10px;display:none;">Incorrect password. Please try again.</div>
+      <button onclick="icuCheck()" style="width:100%;background:linear-gradient(135deg,#0067A4,#44247C);color:#fff;border:none;border-radius:10px;padding:12px;font-size:15px;font-weight:600;cursor:pointer;">Continue</button>
+      <p style="font-size:12px;color:#94a3b8;margin:16px 0 0;">The password is on the notice board if you do not know it.</p>
+    </div>
+  </div>
+  <script>
+    (function(){
+      if(sessionStorage.getItem('icu_unlocked')==='true'){
+        document.getElementById('pw-overlay').style.display='none';
+      }
+      document.addEventListener('DOMContentLoaded',function(){
+        var inp=document.getElementById('pw-input');
+        if(inp) inp.addEventListener('keydown',function(e){if(e.key==='Enter')icuCheck();});
+      });
+    })();
+    function icuCheck(){
+      var v=document.getElementById('pw-input').value.trim().toUpperCase();
+      if(v==='MIDMETCRITCARE'){
+        sessionStorage.setItem('icu_unlocked','true');
+        document.getElementById('pw-overlay').style.display='none';
+      } else {
+        document.getElementById('pw-error').style.display='block';
+        document.getElementById('pw-input').value='';
+        document.getElementById('pw-input').focus();
+      }
+    }
+  </script>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-tag">Critical Care — MMUH</div>
+    <h1>ICU Team Update — June 2026</h1>
+    <p>Spoken narrative &middot; approx. 6 minutes</p>
+  </div>
+
+  <!-- PLAYER -->
+  <div class="container">
+    <div class="player-card">
+      <div class="mic-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0067A4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+      </div>
+      <div class="player-title">June 2026 — Audio Update</div>
+      <div class="player-meta">A spoken summary of this month's newsletter</div>
+      <audio controls preload="auto">
+        <source src="ICU_Update_June2026.m4a" type="audio/mp4">
+        <source src="ICU_Update_June2026.wav" type="audio/wav">
+        Your browser does not support audio playback.
+      </audio>
+      <a class="download-link" href="ICU_Update_June2026.m4a" download>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download audio file
+      </a>
+    </div>
+
+    <div class="notice">
+      <strong>Note:</strong> This is a spoken summary of the June 2026 newsletter — not a word-for-word reading. For full details including links and references, read the complete newsletter.
+    </div>
+
+    <br>
+    <a class="back-link" href="june-2026.html">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Read the full newsletter
+    </a>
+    &nbsp;&nbsp;
+    <a class="back-link" href="index.html" style="color:#64748b;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      All issues
+    </a>
+  </div>
+
+</body>
+</html>
