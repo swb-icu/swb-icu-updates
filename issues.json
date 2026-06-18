@@ -1,6 +1,15 @@
 {
   "issues": [
     {
+      "month": "July",
+      "year": "2026",
+      "newsletter_file": "july-2026.html",
+      "listen_file": "listen-july-2026.html",
+      "audio_file": "ICU_Update_July2026.m4a",
+      "pdf_file": "ICU_Update_A4_July2026.pdf",
+      "summary": "MARCH trial published in NEJM &middot; New ACCP lead Sonia Cole &middot; Albumin prescribing guidance &middot; Organ donation 100% referral rate"
+    },
+    {
       "month": "June",
       "year": "2026",
       "newsletter_file": "june-2026.html",
