@@ -1,6 +1,15 @@
 {
   "issues": [
     {
+      "month": "August",
+      "year": "2026",
+      "newsletter_file": "august-2026.html",
+      "listen_file": "listen-august-2026.html",
+      "audio_file": "ICU_Update_August2026.m4a",
+      "pdf_file": "ICU_Update_A4_August2026.pdf",
+      "summary": "GenOMICC 50-in-2026 milestone &middot; SWB Trust Star Awards &middot; FICM becomes CICM &middot; Smart Care / RELEASE trial safety alert"
+    },
+    {
       "month": "July",
       "year": "2026",
       "newsletter_file": "july-2026.html",
