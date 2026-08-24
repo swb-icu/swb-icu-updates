@@ -1,6 +1,15 @@
 {
   "issues": [
     {
+      "month": "September",
+      "year": "2026",
+      "newsletter_file": "september-2026.html",
+      "listen_file": "listen-september-2026.html",
+      "audio_file": "ICU_Update_September2026.m4a",
+      "pdf_file": "ICU_Update_A4_September2026.pdf",
+      "summary": "Farewell to Amber after 20 years &middot; SHORTER Trial 2nd nationally &middot; Pupillometer SOP live on SPARC &middot; New ICU Research Hub"
+    },
+    {
       "month": "August",
       "year": "2026",
       "newsletter_file": "august-2026.html",
