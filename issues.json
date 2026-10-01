@@ -1,6 +1,15 @@
 {
   "issues": [
     {
+      "month": "October",
+      "year": "2026",
+      "newsletter_file": "october-2026.html",
+      "listen_file": "listen-october-2026.html",
+      "audio_file": "ICU_Update_October2026.m4a",
+      "pdf_file": "ICU_Update_A4_October2026.pdf",
+      "summary": "RELEASE P:F advice and 10th participant &middot; ABBRUPT extended to 2029 &middot; AnchorFast, RRT fluid terms and NSE guidance &middot; New Glidescopes on ICU"
+    },
+    {
       "month": "September",
       "year": "2026",
       "newsletter_file": "september-2026.html",
